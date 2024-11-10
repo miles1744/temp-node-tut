@@ -1,21 +1,21 @@
-// npm - global command, comes with node
-// npm --version
+const http = require("http");
 
-// local dependency - use it only in this particular project
-// npm i <packageName>
+const server = http.createServer((req, res) => {
+  if (req.url === "/") {
+    res.end("Home Page");
+  } else if (req.url === "/about") {
+    // Blocking Code !!!!
+    for (let i = 0; i < 1000; i++) {
+      for (let j = 0; j < 1000; j++) {
+        console.log(`${i} ${j}`);
+      }
+    }
+    res.end("About Page");
+  } else {
+    res.end("Error Page");
+  }
+});
 
-// global dependency - use it only in this particular project
-// npm install -g <packageName>
-// sudo install -g <packageName> (mac)
-
-// package.json - manifest file (stores important info about project/package)
-// manual approach (create package.json in the root, create properties etc)
-// npm init (step by step, press enter to skip)
-// npm init -y (everything default)
-
-const lodash = require("lodash");
-
-const items = [1, [2, [3, [4]]]];
-const newItems = lodash.flattenDeep(items);
-console.log(newItems);
-console.log("Hello people");
+server.listen(5000, () => {
+  console.log("Server Listening on port 5000...");
+});
