@@ -1,21 +1,31 @@
-const http = require("http");
+const { readFile } = require("fs");
+const util = require("util");
+const readFilePromise = util.promisify(readFile);
 
-const server = http.createServer((req, res) => {
-  if (req.url === "/") {
-    res.end("Home Page");
-  } else if (req.url === "/about") {
-    // Blocking Code !!!!
-    for (let i = 0; i < 1000; i++) {
-      for (let j = 0; j < 1000; j++) {
-        console.log(`${i} ${j}`);
-      }
-    }
-    res.end("About Page");
-  } else {
-    res.end("Error Page");
+const start = async () => {
+  try {
+    const first = await getText("./content/first.txt");
+    const second = await getText("./content/second.txt");
+    console.log(first, second);
+  } catch (error) {
+    console.log(error);
   }
-});
+};
 
-server.listen(5000, () => {
-  console.log("Server Listening on port 5000...");
-});
+start();
+
+// getText("./content/first.txt")
+//   .then((result) => console.log(result))
+//   .catch((err) => console.log(err));
+
+// const getText = (path) => {
+//   return new Promise((resolve, reject) => {
+//     readFile(path, "utf8", (err, data) => {
+//       if (err) {
+//         reject(err);
+//       } else {
+//         resolve(data);
+//       }
+//     });
+//   });
+// };
