@@ -4,8 +4,8 @@
   "description": "",
   "main": "1-intro.js",
   "scripts": {
-    "start": "node 1-read-file.js",
-    "dev": "nodemon 1-read-file.js"
+    "start": "node 4-server.js",
+    "dev": "nodemon 4-server.js"
   },
   "keywords": [],
   "author": "",
